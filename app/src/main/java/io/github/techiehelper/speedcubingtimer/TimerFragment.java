@@ -4,21 +4,43 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class TimerFragment extends Fragment {
 
@@ -26,6 +48,8 @@ public class TimerFragment extends Fragment {
     private boolean timerRunning = false;
     private boolean timerReady = false;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss.SS", Locale.UK);
+
+    private File scramblesFile;
 
     private Thread countdownTimer;
     private String currentScramble = "";
@@ -68,6 +92,40 @@ public class TimerFragment extends Fragment {
         setScramble(view, currentScramble);
     }
 
+    private void writeTime() {
+        try {
+            DocumentBuilderFactory objFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder objBuilder = objFactory.newDocumentBuilder();
+            Document objDocument = objBuilder.parse(scramblesFile);
+            Element root = objDocument.getDocumentElement();
+            Node recordsNode = objDocument.getElementsByTagName("records").item(0);
+            Node recordNode = objDocument.createElement("record");
+            recordsNode.appendChild(recordNode);
+
+            Node timeNode = objDocument.createElement("time");
+            timeNode.setTextContent(String.valueOf(time));
+            recordNode.appendChild(timeNode);
+
+            Node dateNode = objDocument.createElement("date");
+            dateNode.setTextContent(String.valueOf(System.currentTimeMillis()));
+            recordNode.appendChild(dateNode);
+
+            Node scrambleNode = objDocument.createElement("scramble");
+            scrambleNode.setTextContent(currentScramble);
+            recordNode.appendChild(scrambleNode);
+
+            Node resultNode = objDocument.createElement("result");
+            resultNode.setTextContent("OK");
+            recordNode.appendChild(resultNode);
+
+            Transformer tr = TransformerFactory.newInstance().newTransformer();
+            tr.transform(new DOMSource(objDocument), new StreamResult(new FileOutputStream(scramblesFile)));
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -80,13 +138,29 @@ public class TimerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        scramblesFile = new File(requireContext().getExternalFilesDir(null), "scrambles.xml");
+
+        try {
+            if (scramblesFile.createNewFile()) {
+                    FileWriter writer = new FileWriter(scramblesFile);
+                    writer.write("<records></records>");
+                    writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("", "Write Failed");
+        }
+
+
+        TextView timerText = view.findViewById(R.id.timerText);
+
         regenerateScramble(view);
 
         final Handler handler = new Handler();
         Runnable longPress = new Runnable() {
             @Override
             public void run() {
-                ((TextView)view.findViewById(R.id.timerText)).setTextColor(Color.GREEN);
+                timerText.setTextColor(Color.GREEN);
                 timerReady = true;
             }
         };
@@ -102,7 +176,7 @@ public class TimerFragment extends Fragment {
                     time = (currentTime - startTime) / 1000000;
                     calendar.setTimeInMillis(time);
 
-                    ((TextView)view.findViewById(R.id.timerText)).setText(dateFormat.format(calendar.getTime()));
+                    timerText.setText(dateFormat.format(calendar.getTime()));
 
                     try {
                         Thread.sleep(10);
@@ -120,11 +194,12 @@ public class TimerFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                     if (timerRunning) {
-                        regenerateScramble(view);
                         countdownTimer.interrupt();
                         timerRunning = false;
+                        writeTime();
+                        regenerateScramble(view);
                     } else {
-                        ((TextView) view.findViewById(R.id.timerText)).setTextColor(Color.RED);
+                        timerText.setTextColor(Color.RED);
                         handler.postDelayed(longPress, 500);
                     }
 
@@ -138,7 +213,7 @@ public class TimerFragment extends Fragment {
                     } else {
                         handler.removeCallbacks(longPress);
                     }
-                    ((TextView)view.findViewById(R.id.timerText)).setTextColor(Color.BLACK);
+                    timerText.setTextColor(Color.BLACK);
                 }
 
                 return true;
