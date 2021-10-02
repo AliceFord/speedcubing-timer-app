@@ -15,6 +15,10 @@
     <string name="learnAlgs">Learn Algorithms</string>
     <string name="settings">Settings</string>
     <string name="scores">Scores</string>
+    <string name="fmc">FMC</string>
+    <string name="learn_algs_label">Learn Algorithms</string>
+    <string name="two_look_pll">2 Look PLL</string>
+    <string name="alg_displayer_label">Algorithm Display</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

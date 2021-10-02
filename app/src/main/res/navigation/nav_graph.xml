@@ -17,6 +17,32 @@
     </fragment>
 
     <fragment
+        android:id="@+id/LearnAlgs"
+        android:name="io.github.techiehelper.speedcubingtimer.LearnAlgsPage"
+        android:label="@string/learn_algs_label"
+        tools:layout="@layout/page_learn_algs">
+
+        <action
+            android:id="@+id/action_LearnAlgs_to_HomePage"
+            app:destination="@id/HomePage" />
+
+        <action
+            android:id="@+id/action_LearnAlgs_to_AlgDisplayer"
+            app:destination="@id/AlgDisplayer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AlgDisplayer"
+        android:name="io.github.techiehelper.speedcubingtimer.AlgDisplayer"
+        android:label="@string/alg_displayer_label"
+        tools:layout="@layout/page_alg_displayer">
+
+        <action
+            android:id="@+id/action_AlgDisplayer_to_LearnAlgs"
+            app:destination="@id/LearnAlgs" />
+    </fragment>
+
+    <fragment
         android:id="@+id/HomePage"
         android:name="io.github.techiehelper.speedcubingtimer.HomePage"
         android:label="@string/first_fragment_label"
@@ -29,6 +55,10 @@
         <action
             android:id="@+id/action_HomePage_to_TimerFragment"
             app:destination="@id/TimerFragment" />
+
+        <action
+            android:id="@+id/action_HomePage_to_LearnAlgs"
+            app:destination="@id/LearnAlgs" />
     </fragment>
 
     <fragment

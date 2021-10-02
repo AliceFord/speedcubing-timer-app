@@ -2,7 +2,6 @@ package io.github.techiehelper.speedcubingtimer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class HomePage extends Fragment {
+public class LearnAlgsPage extends Fragment {
 
     @Override
     public View onCreateView(
@@ -18,25 +17,20 @@ public class HomePage extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.page_home, container, false);
+        return inflater.inflate(R.layout.page_learn_algs, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.timerButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.twolookpll).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(HomePage.this)
-                        .navigate(R.id.action_HomePage_to_TimerFragment);
-            }
-        });
 
-        view.findViewById(R.id.learnAlgsButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(HomePage.this)
-                        .navigate(R.id.action_HomePage_to_LearnAlgs);
+                ((CustomApplication) getActivity().getApplication()).setCurrentAlgorithm(AlgorithmSet.TWO_LOOK_PLL);
+
+                NavHostFragment.findNavController(LearnAlgsPage.this)
+                        .navigate(R.id.action_LearnAlgs_to_AlgDisplayer);
             }
         });
     }
