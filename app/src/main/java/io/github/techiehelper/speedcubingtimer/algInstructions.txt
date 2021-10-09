@@ -1,0 +1,1 @@
+12 letters representing colours (Orange, Red, Blue, Green, Unused), followed by arrow direction pairs, 1-12 from top left clockwise
