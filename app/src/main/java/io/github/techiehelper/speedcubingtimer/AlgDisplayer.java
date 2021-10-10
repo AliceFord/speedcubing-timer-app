@@ -25,9 +25,14 @@ public class AlgDisplayer extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout algs = getActivity().findViewById(R.id.algDisplayerLayout);
-        AlgorithmSetupDescriptor descriptor = new AlgorithmSetupDescriptor("H Perm", AlgType.PLL, "OROGBGRORBGB 2-8 8-2 5-11 11-5", new String[]{"Unused"});
+        AlgorithmSetupDescriptor descriptor = new AlgorithmSetupDescriptor("H Perm", AlgType.PLL, "OROGBGRORBGB 2-8 8-2 4-6 6-4", new String[]{"Unused"});
         AlgorithmDisplayView temp = new AlgorithmDisplayView(getActivity(), descriptor, new String[]{"M2' U' M2' U2' M2' U' M2'"});
+
+        AlgorithmSetupDescriptor descriptor2 = new AlgorithmSetupDescriptor("Ua Perm", AlgType.PLL, "OOOGBGRGRBRB 4-8 8-6 6-4", new String[]{"Unused"});
+        AlgorithmDisplayView temp2 = new AlgorithmDisplayView(getActivity(), descriptor2, new String[]{"M2' U M U2' M' U M2'"});
+
         algs.addView(temp);
+        algs.addView(temp2);
 
         TextView text = new TextView(getActivity());
         text.setText("Hi");
