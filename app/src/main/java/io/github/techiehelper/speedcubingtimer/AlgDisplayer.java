@@ -25,6 +25,12 @@ public class AlgDisplayer extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout algs = getActivity().findViewById(R.id.algDisplayerLayout);
+
+        if (((CustomApplication) getActivity().getApplication()).getCurrentAlgorithm() == AlgorithmSet.TWO_LOOK_PLL) {
+
+        }
+
+
         AlgorithmSetupDescriptor descriptor = new AlgorithmSetupDescriptor("H Perm", AlgType.PLL, "OROGBGRORBGB 2-8 8-2 4-6 6-4", new String[]{"Unused"});
         AlgorithmDisplayView temp = new AlgorithmDisplayView(getActivity(), descriptor, new String[]{"M2' U' M2' U2' M2' U' M2'"});
 
@@ -33,11 +39,5 @@ public class AlgDisplayer extends Fragment {
 
         algs.addView(temp);
         algs.addView(temp2);
-
-        TextView text = new TextView(getActivity());
-        text.setText("Hi");
-        algs.addView(text);
-
-        //getActivity().recreate();
     }
 }
