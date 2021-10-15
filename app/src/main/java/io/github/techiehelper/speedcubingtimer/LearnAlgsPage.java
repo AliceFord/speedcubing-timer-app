@@ -27,7 +27,7 @@ public class LearnAlgsPage extends Fragment {
             @Override
             public void onClick(View view) {
 
-                ((CustomApplication) getActivity().getApplication()).setCurrentAlgorithm(AlgorithmSet.TWO_LOOK_PLL);
+                ((CustomApplication) requireActivity().getApplication()).setCurrentAlgorithm(AlgorithmSet.TWO_LOOK_PLL);
 
                 NavHostFragment.findNavController(LearnAlgsPage.this)
                         .navigate(R.id.action_LearnAlgs_to_AlgDisplayer);

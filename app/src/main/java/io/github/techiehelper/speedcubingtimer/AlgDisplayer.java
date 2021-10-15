@@ -1,17 +1,26 @@
 package io.github.techiehelper.speedcubingtimer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import io.github.techiehelper.speedcubingtimer.customviews.AlgorithmDisplayView;
 
 public class AlgDisplayer extends Fragment {
+    private File twoLookPllFile;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -24,20 +33,39 @@ public class AlgDisplayer extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayout algs = getActivity().findViewById(R.id.algDisplayerLayout);
-
-        if (((CustomApplication) getActivity().getApplication()).getCurrentAlgorithm() == AlgorithmSet.TWO_LOOK_PLL) {
-
+        try {
+            Log.i("", Arrays.toString(requireContext().getAssets().list("")));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        LinearLayout algs = requireActivity().findViewById(R.id.algDisplayerLayout);
 
-        AlgorithmSetupDescriptor descriptor = new AlgorithmSetupDescriptor("H Perm", AlgType.PLL, "OROGBGRORBGB 2-8 8-2 4-6 6-4", new String[]{"Unused"});
-        AlgorithmDisplayView temp = new AlgorithmDisplayView(getActivity(), descriptor, new String[]{"M2' U' M2' U2' M2' U' M2'"});
+        String fileName;
 
-        AlgorithmSetupDescriptor descriptor2 = new AlgorithmSetupDescriptor("Ua Perm", AlgType.PLL, "OOOGBGRGRBRB 4-8 8-6 6-4", new String[]{"Unused"});
-        AlgorithmDisplayView temp2 = new AlgorithmDisplayView(getActivity(), descriptor2, new String[]{"M2' U M U2' M' U M2'"});
+        switch (((CustomApplication) requireActivity().getApplication()).getCurrentAlgorithm()) {
+            case TWO_LOOK_PLL:
+                fileName = "twoLookPll.csv";
+                break;
+            case UNUSED:
+            default:
+                fileName = "empty.csv";
+                break;
+        }
 
-        algs.addView(temp);
-        algs.addView(temp2);
+        List<List<String>> parsedData = null;
+        try {
+            parsedData = AlgorithmFileParser.parse(requireContext().getAssets().open(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (parsedData == null) return; // Error!
+
+        for (List<String> perm : parsedData) {
+            AlgorithmSetupDescriptor descriptor = new AlgorithmSetupDescriptor(perm.get(0), AlgType.PLL, perm.get(1), new String[]{perm.get(2)});
+            AlgorithmDisplayView displayView = new AlgorithmDisplayView(getActivity(), descriptor, perm.subList(3, perm.size()));
+            algs.addView(displayView);
+        }
     }
 }

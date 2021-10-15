@@ -1,0 +1,6 @@
+H Perm,OROGBGRORBGB 2-8 8-2 4-6 6-4,Unused,M2' U' M2' U2' M2' U' M2'
+Ua Perm,OOOGBGRGRBRB 4-8 8-6 6-4,Unused,M2' U M U2' M' U M2'
+Ub Perm,OOOGRGRBRBGB 4-6 6-8 8-4,Unused,M2' U' M U2' M' U' M2'
+Z Perm,OBOGRGRGRBOB 2-4 4-2 6-8 8-6,Unused,M' U' M2 U' M2 U' M' U2' M2
+T Perm,OOGRBOGRRBGB 3-9 9-3 4-6 6-4,Unused,R U R' U' R' F R2 U' R' U' R U R' F'
+Y Perm,RBOGGBORRBOG 1-9 9-1 2-4 4-2,Unused,F R U' R' U' R U R' F' R U R' U' R' F R F'

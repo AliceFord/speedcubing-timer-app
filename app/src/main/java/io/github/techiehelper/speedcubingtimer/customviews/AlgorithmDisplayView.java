@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import io.github.techiehelper.speedcubingtimer.AlgType;
@@ -28,11 +29,11 @@ public class AlgorithmDisplayView extends View {
     }};
 
     private final AlgorithmSetupDescriptor setupDescriptor;
-    private final String[] algs; // 1st is default
+    private final List<String> algs; // 1st is default
 
     private Paint paint;
 
-    public AlgorithmDisplayView(Context context, AlgorithmSetupDescriptor setupDescriptor, String[] algs) {
+    public AlgorithmDisplayView(Context context, AlgorithmSetupDescriptor setupDescriptor, List<String> algs) {
         super(context);
 
         this.setLayoutParams(new ActionBar.LayoutParams(1440, 390));
@@ -62,13 +63,13 @@ public class AlgorithmDisplayView extends View {
 
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(60.0f);
+        paint.setTextSize(50.0f);
 
         canvas.drawText(setupDescriptor.getName(), 30, 70, paint);
 
-        paint.setTextSize(70.0f);
+        paint.setTextSize(60.0f);
 
-        canvas.drawText(algs[0], 20, 225, paint);
+        canvas.drawText(algs.get(0), 20, 225, paint);
 
         if (setupDescriptor.getAlgType() == AlgType.PLL) {
             paint.setColor(Color.YELLOW);
@@ -91,7 +92,8 @@ public class AlgorithmDisplayView extends View {
             }
 
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5);
+
+            paint.setStrokeWidth(7);
 
             String arrowInstructions = instructions.substring(instructions.indexOf(' ') + 1);
             for (String arrowInstruction : arrowInstructions.split(" ")) {
@@ -105,12 +107,14 @@ public class AlgorithmDisplayView extends View {
 
                 canvas.drawLine(newPos1.x, newPos1.y, newPos2.x, newPos2.y, paint);
 
-                float angle = 30.0f;
-                float radius = 30.0f;
+
+                float angle = 50.0f;
+                float radius = 35.0f;
 
                 float anglerad = (float) (Math.PI * angle / 180.0f);
                 float lineangle = (float) (Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x));
 
+                @SuppressLint("DrawAllocation")
                 Path path = new Path();
                 path.setFillType(Path.FillType.EVEN_ODD);
                 path.moveTo(pos2.x, pos2.y);

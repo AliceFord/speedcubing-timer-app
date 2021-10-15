@@ -1,1 +1,3 @@
 12 letters representing colours (Orange, Red, Blue, Green, Unused), followed by arrow direction pairs, 1-9 in rows
+
+File format:
