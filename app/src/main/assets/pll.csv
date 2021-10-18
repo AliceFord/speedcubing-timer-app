@@ -1,0 +1,19 @@
+Aa Perm,GOGRGBORRBBO 1-3 3-9 9-1,Unused,(x) R' U R' D2 R U' R' D2 R2
+Ab Perm,OORBGOGRGRBB 3-7 7-9 9-3,Unused,(x') R U' R D2 R' U R D2 R2
+E Perm,GOBOGRBRGRBO 1-3 3-1 7-9 9-7,Unused,R2 U F' (R' U R U')3 F U' R2
+F Perm,ORGRGOGORBBB 2-8 8-2 3-9 9-3,Unused,R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R
+H Perm,OROGBGRORBGB 2-8 8-2 4-6 6-4,Unused,M2' U' M2' U2' M2' U' M2'
+Ga Perm,ROBOGRBBOGRG 1-3 3-7 7-1 2-4 4-6 6-2,Unused,R2 U R' U R' U' R U' R2 U' D R' U R D'
+Gb Perm,RGBOORGROGBG 1-7 7-9 9-1 2-8 8-4 4-2,Unused,R' U' R U D' R2 U R' U R U' R U' R2 D
+Gc Perm,OGGRBOGORBRB 1-7 7-9 9-1 4-6 6-8 8-4,Unused,R2 U' R U' R U R' U R2 U D' R U' R' D
+Gd Perm,ORGROOGBRBGB 1-3 3-7 7-1 4-8 8-2 2-4,Unused,R U R' U' D R2 U' R U' R' U R' U R2 D'
+Ja Perm,OGGROOGRRBBB 2-6 6-2 3-9 9-3,Unused,(x) R2' F R F' R U2 r' U r U2
+Jb Perm,OOGRROGGRBBB 3-9 9-3 6-8 8-6,Unused,R U R' F' R U R' U' R' F R2 U' R' U'
+Na Perm,OORBBGRROGGB 3-7 7-3 4-6 6-4,Unused,R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'
+Nb Perm,ROOGBBORRBGG 1-9 9-1 4-6 6-4,Unused,r' D' F r U' r' F' D r2 U r' U' r' F R F'
+T Perm,OOGRBOGRRBGB 3-9 9-3 4-6 6-4,Unused,R U R' U' R' F R2 U' R' U' R U R' F'
+Ua Perm,OOOGBGRGRBRB 4-8 8-6 6-4,Unused,M2' U M U2' M' U M2'
+Ub Perm,OOOGRGRBRBGB 4-6 6-8 8-4,Unused,M2' U' M U2' M' U' M2'
+V Perm,RGOGOBORRBBG 1-9 9-1 2-6 6-2,Unused,(x') R' U R U' R' f' U' R U2 R' U' R U' R' f R
+Y Perm,RBOGGBORRBOG 1-9 9-1 2-4 4-2,Unused,F R U' R' U' R U R' F' R U R' U' R' F R F'
+Z Perm,OBOGRGRGRBOB 2-4 4-2 6-8 8-6,Unused,M' U' M2 U' M2 U' M' U2' M2

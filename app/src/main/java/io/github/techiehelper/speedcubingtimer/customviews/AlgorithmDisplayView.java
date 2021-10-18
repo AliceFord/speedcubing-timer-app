@@ -67,7 +67,7 @@ public class AlgorithmDisplayView extends View {
 
         canvas.drawText(setupDescriptor.getName(), 30, 70, paint);
 
-        paint.setTextSize(60.0f);
+        paint.setTextSize(60.0f - (algs.get(0).length() > 35 ? 15.0f : 0.0f));
 
         canvas.drawText(algs.get(0), 20, 225, paint);
 
@@ -101,9 +101,9 @@ public class AlgorithmDisplayView extends View {
                 Point pos2 = getCentreCoordinate(Integer.decode(arrowInstruction.substring(arrowInstruction.indexOf('-') + 1)));
 
                 @SuppressLint("DrawAllocation")
-                Point newPos1 = new Point((int)(pos1.x + 0.15 * (pos2.x - pos1.x)), (int)(pos1.y + 0.15 * (pos2.y - pos1.y))); // Linear interpolation
+                Point newPos1 = new Point((int)(pos1.x + 0.1 * (pos2.x - pos1.x)), (int)(pos1.y + 0.1 * (pos2.y - pos1.y))); // Linear interpolation
                 @SuppressLint("DrawAllocation")
-                Point newPos2 = new Point((int)(pos2.x + 0.15 * (pos1.x - pos2.x)), (int)(pos2.y + 0.15 * (pos1.y - pos2.y)));
+                Point newPos2 = new Point((int)(pos2.x + 0.1 * (pos1.x - pos2.x)), (int)(pos2.y + 0.1 * (pos1.y - pos2.y)));
 
                 canvas.drawLine(newPos1.x, newPos1.y, newPos2.x, newPos2.y, paint);
 

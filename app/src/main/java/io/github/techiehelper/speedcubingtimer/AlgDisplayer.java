@@ -47,6 +47,12 @@ public class AlgDisplayer extends Fragment {
             case TWO_LOOK_PLL:
                 fileName = "twoLookPll.csv";
                 break;
+            case TWO_LOOK_OLL:
+                fileName = "twoLookOll.csv";
+                break;
+            case PLL:
+                fileName = "pll.csv";
+                break;
             case UNUSED:
             default:
                 fileName = "empty.csv";
